@@ -16,9 +16,10 @@ def rolling_max(prices, k):
         if pos < i - k + 1:
             print(i,i-k+1)
             high = prices[i - k + 1]
+            pos = i - k + 1
             for j in range(i - k + 2, i, 1):
                 if prices[j] > high:
                         high = prices[j]
-                        pos = i
+                        pos = j
     return ans
 print(rolling_max(prices = [1, 3, -1, -3, 5, 3, 6, 7], k = 3))
