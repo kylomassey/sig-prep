@@ -8,14 +8,17 @@ def rolling_max(prices, k):
         if prices[i] > high:
             high = prices[i]
             pos = i
-        if i >= 2:
+        if i >= k - 1:
             ans.append(high)
         i += 1
-        if pos < i - 2:
-            high = prices[i-2]
-            for j in range(i-1, i, 1):
+        if i >=n:
+             break
+        if pos < i - k + 1:
+            print(i,i-k+1)
+            high = prices[i - k + 1]
+            for j in range(i - k + 2, i, 1):
                 if prices[j] > high:
                         high = prices[j]
                         pos = i
     return ans
-print(rolling_max([5,4,3,2,1], k=3))
+print(rolling_max(prices = [1, 3, -1, -3, 5, 3, 6, 7], k = 3))
