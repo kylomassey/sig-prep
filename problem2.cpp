@@ -8,13 +8,13 @@ vector<vector<long long>> binary_search(vector<vector<long long>> prices, long l
     int r = prices.size() - 1;
     int mid = 0;
     while (l <= r){
-        mid = 1 + (r - l) / 2;
+        mid = ((r + l) / 2);
         if(price == prices[mid][0]){
             prices.insert(prices.begin() + mid + 1, {price, pos});
             return prices;
         }
         if(price > prices[mid][0]) l = mid + 1;
-        if(price > prices[mid][0]) r = mid - 1;
+        if(price < prices[mid][0]) r = mid - 1;
     }
     if(price > prices[mid][0]){
         prices.insert(prices.begin() + mid + 1, {price, pos});
@@ -42,6 +42,7 @@ int main() {
                             qty -= sells[sellorder[i][1]]["qty"];
                             trades.push_back({id, sellorder[i][1],sells[sellorder[i][1]]["qty"], sellorder[i][0]});
                             sells.erase(sellorder[i][1]);
+                            sellorder.erase(sellorder.begin() + i);
                         }else{
                             sells[sellorder[i][1]]["qty"] -= qty;
                             trades.push_back({id, sellorder[i][1],qty, sellorder[i][0]});
@@ -77,11 +78,11 @@ int main() {
             if(qty != 0){
                 if(sellorder.empty()) sellorder.push_back({price, id});
                 else sellorder = binary_search(sellorder, price, id);
-                sells[id] = {("qty", qty), ("price", price)};
+                sells[id] = {{"qty", qty}, {"price", price}};
             }
         }
     }
     for(auto trade : trades){
-        cout << "TRADE" << trade[0] << "\t" << trade[1] << "\t" << trade[2] << "\t" << trade[3] << endl;
+        cout << "TRADE " << trade[0] << " " << trade[1] << " " << trade[2] << " " << trade[3] << endl;
     }
 }
